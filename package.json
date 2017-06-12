@@ -1,0 +1,40 @@
+{
+  "name": "webfinger",
+  "version": "1.0.0",
+  "description": "A JavaScript module for webfinger written in TypeScript",
+  "main": "dist/webfinger.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "dist/webfinger.js"
+  ],
+  "scripts": {
+    "build": "webpack",
+    "build-prod": "webpack -p",
+    "watch": "webpack --watch --watch-poll ",
+    "prepublish": "webpack -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [
+    "Webfinger",
+    "TypeScript",
+    "JavaScript",
+    "Identity"
+  ],
+  "typings": "dist/index.d.ts",
+  "author": "Danny Koppenhagen <mail@d-koppenhagen.de> (https://d-koppenhagen.de)",
+  "license": "MIT",
+  "devDependencies": {
+    "extract-text-webpack-plugin": "",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.4",
+    "vanilla-typescript": "^0.2.0",
+    "webpack": "^2.2.0",
+    "webpack-build-notifier": "^0.1.13"
+  }
+}
