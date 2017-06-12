@@ -26,13 +26,13 @@
     "JavaScript",
     "Identity"
   ],
-  "typings": "dist/index.d.ts",
   "author": "Danny Koppenhagen <mail@d-koppenhagen.de> (https://d-koppenhagen.de)",
   "license": "MIT",
   "devDependencies": {
     "extract-text-webpack-plugin": "",
     "ts-loader": "^2.0.0",
-    "typescript": "^2.1.4",
+    "tslint": "~5.4.3",
+    "typescript": "^2.3.4",
     "vanilla-typescript": "^0.2.0",
     "webpack": "^2.2.0",
     "webpack-build-notifier": "^0.1.13"
