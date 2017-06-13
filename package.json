@@ -27,7 +27,7 @@
     "Identity"
   ],
   "author": "Danny Koppenhagen <mail@d-koppenhagen.de> (https://d-koppenhagen.de)",
-  "license": "MIT",
+  "license": "LGPL",
   "devDependencies": {
     "extract-text-webpack-plugin": "",
     "ts-loader": "^2.0.0",
