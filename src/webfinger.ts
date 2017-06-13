@@ -16,6 +16,10 @@
  *
  */
 
+import { IWebFingerConfig } from './webfinger-config';
+import { IWebFingerError } from './webfinger-error';
+import { IjrdResponse } from './jrd-response';
+
 const LINK_URI_MAPS = {
   'http://webfist.org/spec/rel': 'webfist',
   'http://webfinger.net/rel/avatar': 'avatar',
@@ -46,34 +50,18 @@ const LINK_PROPERTIES = {
 const URIS = ['webfinger', 'host-meta', 'host-meta.json'];
 
 export class WebFinger {
-  config: {
-    tls_only: true,
-    webfist_fallback: false,
-    uri_fallback: false,
-    request_timeout: 10000
+  constructor(public config: IWebFingerConfig) {
+    this.config.tlsOnly = config.tlsOnly || true;
+    this.config.webfistFallback = config.webfistFallback || false;
+    this.config.uriFallback = config.uriFallback || false;
+    this.config.requestTimeout = config.requestTimeout || 10000;
   }
 
-  constructor(config) {
-    if (typeof config !== 'object') {
-      config = {};
-    }
-
-    this.config = {
-      tls_only:         config.tls_only || true,
-      webfist_fallback: config.webfist_fallback || false,
-      uri_fallback:     config.uri_fallback || false,
-      request_timeout:  config.request_timeout || 10000
-    };
-  }
-
-  private _err(obj) {
-    obj.toString = function () {
-      return this.message;
-    };
+  private _err(obj: IWebFingerError) {
     return obj;
   }
 
-  private _fetchJRD = function (url, cb) {
+  private _fetchJRD(url: string, cb: Function) {
     const self = this;
     const xhr = new XMLHttpRequest();
 
@@ -110,7 +98,7 @@ export class WebFinger {
     xhr.send();
   };
 
-  private _isValidJSON = function (str) {
+  private _isValidJSON(str: string) {
     try {
       JSON.parse(str);
     } catch (e) {
@@ -119,26 +107,22 @@ export class WebFinger {
     return true;
   };
 
-  private _isLocalhost = function (host) {
+  private _isLocalhost(host: string) {
     return /^localhost(\.localdomain)?(\:[0-9]+)?$/.test(host);
   };
 
-  private _processJRD = function (JRD, cb) {
+  private _processJRD(JRD: IjrdResponse, cb: Function) {
     const self = this;
-    const parsedJRD = JSON.parse(JRD);
-    if ((typeof parsedJRD !== 'object') ||
-        (typeof parsedJRD.links !== 'object')) {
-      if (typeof parsedJRD.error !== 'undefined') {
-        cb(this._err({ message: parsedJRD.error }));
-      } else {
-        cb(this._err({ message: 'unknown response from server' }));
-      }
-      return false;
+
+    if (typeof JRD.error !== 'undefined') {
+      cb(this._err({ message: JRD.error }));
+    } else {
+      cb(this._err({ message: 'unknown response from server' }));
     }
 
-    const links = parsedJRD.links;
+    const links = JRD.links;
     const result = {  // webfinger JRD - object, json, and our own indexing
-      object: parsedJRD,
+      object: JRD,
       json: JRD,
       idx: {
         properties: { name: undefined },
@@ -147,11 +131,11 @@ export class WebFinger {
     };
 
     // process links
-    links.map(function (link, i) {
+    links.map((link, i) => {
       if (LINK_URI_MAPS.hasOwnProperty(link.rel)) {
         if (result.idx.links[LINK_URI_MAPS[link.rel]]) {
           const entry = {};
-          Object.keys(link).map(function (item, n) {
+          Object.keys(link).map((item, n) => {
             entry[item] = link[item];
           });
           result.idx.links[LINK_URI_MAPS[link.rel]].push(entry);
@@ -160,7 +144,7 @@ export class WebFinger {
     });
 
     // process properties
-    const props = JSON.parse(JRD).properties;
+    const props = JRD.properties;
     for (const key in props) {
       if (props.hasOwnProperty(key)) {
         if (key === 'http://packetizer.com/ns/name') {
@@ -171,13 +155,7 @@ export class WebFinger {
     cb(null, result);
   };
 
-  lookup(address, cb) {
-    if (typeof address !== 'string') {
-      throw new Error('first parameter must be a user address');
-    } else if (typeof cb !== 'function') {
-      throw new Error('second parameter must be a callback');
-    }
-
+  lookup(address: string, cb: Function) {
     const self = this;
     const parts = address.replace(/ /g, '').split('@');
     let host = parts[1];    // host name for this useraddress
@@ -185,27 +163,26 @@ export class WebFinger {
     let protocol = 'https'; // we use https by default
 
     if (parts.length !== 2) {
-      cb(this._err({ message: 'invalid user address ' + address + ' ( expected format: user@host.com )' }));
+      cb(this._err({ message: `invalid user address ${address} (expected format: user@host.com)` }));
       return false;
     } else if (self._isLocalhost(host)) {
       protocol = 'http';
     }
 
     function _buildURL() {
-      return protocol + '://' + host + '/.well-known/' +
-             URIS[uri_index] + '?resource=acct:' + address;
+      return `${protocol}://${host}/.well-known/${URIS[uri_index]}?resource=acct:${address}`;
     }
 
     // control flow for failures, what to do in various cases, etc.
     function _fallbackChecks(err) {
-      if ((self.config.uri_fallback) && (host !== 'webfist.org') && (uri_index !== URIS.length - 1)) { // we have uris left to try
+      if ((self.config.uriFallback) && (host !== 'webfist.org') && (uri_index !== URIS.length - 1)) { // we have uris left to try
         uri_index = uri_index + 1;
         _call();
-      } else if ((!self.config.tls_only) && (protocol === 'https')) { // try normal http
+      } else if ((!self.config.tlsOnly) && (protocol === 'https')) { // try normal http
         uri_index = 0;
         protocol = 'http';
         _call();
-      } else if ((self.config.webfist_fallback) && (host !== 'webfist.org')) { // webfist attempt
+      } else if ((self.config.webfistFallback) && (host !== 'webfist.org')) { // webfist attempt
         uri_index = 0;
         protocol = 'http';
         host = 'webfist.org';
@@ -253,9 +230,11 @@ export class WebFinger {
     setTimeout(_call, 0);
   };
 
-  lookupLink(address, rel, cb) {
+  lookupLink(address: string, rel: string, cb: Function) {
+    const that = this;
+
     if (LINK_PROPERTIES.hasOwnProperty(rel)) {
-      this.lookup(address, function (err, p) {
+      that.lookup(address, (err, p) => {
         const links  = p.idx.links[rel];
         if (err) {
           cb (err);
