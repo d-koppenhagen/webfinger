@@ -1,14 +1,12 @@
 /*!
- * webfinger.js
- *   version 2.2.0
- *   http://github.com/silverbucket/webfinger.js
+ * Webfinger Library
  *
- * Translated to TypeScript by Danny Koppenhagen
+ * Translated to TypeScript by Danny Koppenhagen <mail@d-koppenhagen.de>
  *
- * Originally JS-file developed and maintained by:
+ * Originally developed and maintained by:
  *   Nick Jennings <nick@silverbucket.net> 2012 - 2014
- *
- * webfinger.js is released under the AGPL (see LICENSE).
+ *   Github: http://github.com/silverbucket/webfinger.js
+ * webfinger.js is released under the LGPL (see LICENSE).
  *
  * You don't have to do anything special to choose one license or the other and you don't
  * have to notify anyone which license you are using.

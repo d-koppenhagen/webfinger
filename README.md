@@ -14,7 +14,7 @@ This library may doesn't work in the current version and is still in development
 
 * optional support for [WebFist](http://webfist.org)
 
-## Initialize
+## Usage
 
 ### Import
 In node.js as well as in TypeScript you have to import the module before using it:
@@ -23,7 +23,7 @@ In node.js as well as in TypeScript you have to import the module before using i
 import { WebFinger } from 'webfinger';
 ```
 
-## Use
+### Use
 
 ```typescript
   let webfinger = new WebFinger({
@@ -79,3 +79,7 @@ import { WebFinger } from 'webfinger';
 //   }
 // }
 ```
+
+## Development
+The library is built with Webpack. Notes for building and serving can be fount in 
+[DEVELOPMENT](DEVELOPMENT).
