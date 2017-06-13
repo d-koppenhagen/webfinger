@@ -5,7 +5,10 @@
   "main": "dist/webfinger.js",
   "types": "dist/src/index.d.ts",
   "files": [
-    "dist/webfinger.js"
+    "dist/webfinger.js",
+    "dist/webfinger-config.js",
+    "dist/webfinger-error.js",
+    "dist/jrd-response.js"
   ],
   "scripts": {
     "build": "webpack",

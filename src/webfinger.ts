@@ -16,9 +16,9 @@
  *
  */
 
-import { IWebFingerConfig } from './webfinger-config';
-import { IWebFingerError } from './webfinger-error';
-import { IjrdResponse } from './jrd-response';
+import { IWebFingerConfig } from './interfaces/webfinger-config';
+import { IWebFingerError } from './interfaces/webfinger-error';
+import { IjrdResponse } from './interfaces/jrd-response';
 
 const LINK_URI_MAPS = {
   'http://webfist.org/spec/rel': 'webfist',

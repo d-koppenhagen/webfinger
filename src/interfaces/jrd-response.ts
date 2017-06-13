@@ -5,5 +5,5 @@ export interface IjrdResponse {
   links: {
     [link: string] : any
   },
-  error: any;
+  error?: any;
 }
