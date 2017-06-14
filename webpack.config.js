@@ -11,12 +11,12 @@ const PATHS = {
 module.exports = {
 
   entry: {
-    'webfinger': PATHS.src + '/webfinger.ts'
+    'index': PATHS.src + '/index.ts'
   },
   output: {
     path: PATHS.build,
     filename: '[name].js',
-    library: 'Webfinger',
+    library: 'WebFinger',
     libraryTarget: 'umd'
   },
   devtool: 'source-map',

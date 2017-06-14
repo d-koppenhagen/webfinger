@@ -1,36 +1,42 @@
-# Webfinger Module
+# webfinger-client
 
 A webfinger client that runs both in the browser and in node.js.
 The Client is based on Nick Jennings library [webfinger.js](https://github.com/silverbucket/webfinger.js) but has been rewritten in TypeScript.
 
 ## IMPORTANT NOTE
-This library may doesn't work in the current version and is still in development
+This client library may doesn't work in the current version and is still in development
 
 ## Features
 
 * defaults to TLS only
-
 * optional URI fallback (for older services which use `host-meta` or `host-meta.json` URI endpoints)
-
 * optional support for [WebFist](http://webfist.org)
 
-## Usage
+## Demo
+clone this repository, navigate into the `demo`-folder, run `npm install` and finally `npm start`
 
+## Install
+Install the client as a dependency:
+
+```bash
+npm install --save webfinger-client
+```
+
+## Usage
 ### Import
-In node.js as well as in TypeScript you have to import the module before using it:
+You have to import the module before using it:
 
 ```typescript
 import { WebFinger } from 'webfinger';
 ```
 
 ### Use
-
 ```typescript
   let webfinger = new WebFinger({
-    webfist_fallback: true,  // defaults to false
-    tls_only: true,          // defaults to true
-    uri_fallback: false,     // defaults to false
-    request_timeout: 10000,  // defaults to 10000
+    webfistFallback: true,  // defaults to false
+    tlsOnly: true,          // defaults to true
+    uriFallback: false,     // defaults to false
+    requestTimeout: 10000,  // defaults to 10000
   });
 
   webfinger.lookup('alice@example.org', function (err, p) {

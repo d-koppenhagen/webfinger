@@ -18,7 +18,7 @@
 
 import { IWebFingerConfig } from './interfaces/webfinger-config';
 import { IWebFingerError } from './interfaces/webfinger-error';
-import { IjrdResponse } from './interfaces/jrd-response';
+import { Ijrd, IjrdLink } from './interfaces/jrd';
 
 const LINK_URI_MAPS = {
   'http://webfist.org/spec/rel': 'webfist',
@@ -69,7 +69,7 @@ export class WebFinger {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           if (self._isValidJSON(xhr.responseText)) {
-            cb(null, xhr.responseText);
+            cb(null, JSON.parse(xhr.responseText));
           } else {
             cb(self._err({
               message: 'invalid json',
@@ -111,13 +111,11 @@ export class WebFinger {
     return /^localhost(\.localdomain)?(\:[0-9]+)?$/.test(host);
   };
 
-  private _processJRD(JRD: IjrdResponse, cb: Function) {
+  private _processJRD(JRD: Ijrd, cb: Function) {
     const self = this;
 
-    if (typeof JRD.error !== 'undefined') {
+    if (JRD.error) {
       cb(this._err({ message: JRD.error }));
-    } else {
-      cb(this._err({ message: 'unknown response from server' }));
     }
 
     const links = JRD.links;
