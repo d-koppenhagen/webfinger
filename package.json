@@ -19,10 +19,10 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/d-koppenhagen/webfinger.git"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/d-koppenhagen/webfinger/issues"
   },
   "keywords": [
     "Webfinger",
