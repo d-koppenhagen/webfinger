@@ -51,10 +51,10 @@ const URIS = ['webfinger', 'host-meta', 'host-meta.json'];
 
 export class WebFinger {
   constructor(public config: IWebFingerConfig) {
-    this.config.tlsOnly = config.tlsOnly || true;
-    this.config.webfistFallback = config.webfistFallback || false;
-    this.config.uriFallback = config.uriFallback || false;
-    this.config.requestTimeout = config.requestTimeout || 10000;
+    if (config.tlsOnly == null) { config.tlsOnly = true; }
+    if (config.webfistFallback == null) { config.webfistFallback = false };
+    if (config.uriFallback == null) { config.uriFallback = false };
+    if (config.requestTimeout == null) { config.requestTimeout = 10000 };
   }
 
   private _err(obj: IWebFingerError) {
