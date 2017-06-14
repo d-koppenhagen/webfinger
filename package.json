@@ -26,9 +26,13 @@
   },
   "keywords": [
     "Webfinger",
+    "Webfist",
     "TypeScript",
     "JavaScript",
-    "Identity"
+    "Identity",
+    "Profile",
+    "host-meta",
+    "IdP"
   ],
   "author": "Danny Koppenhagen <mail@d-koppenhagen.de> (https://d-koppenhagen.de)",
   "license": "LGPL-3.0",
