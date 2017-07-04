@@ -37,7 +37,7 @@
   "author": "Danny Koppenhagen <mail@d-koppenhagen.de> (https://d-koppenhagen.de)",
   "license": "LGPL-3.0",
   "devDependencies": {
-    "extract-text-webpack-plugin": "",
+    "extract-text-webpack-plugin": "^2.1.2",
     "ts-loader": "^2.0.0",
     "tslint": "~5.4.3",
     "typescript": "^2.3.4",

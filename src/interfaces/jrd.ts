@@ -7,7 +7,7 @@
 
 export interface Ijrd {
   properties?: {
-    [link: string] : string | null
+    [link: string]: string | null
   },
   links: IjrdLink[],
   subject?: string;
@@ -20,9 +20,9 @@ export interface IjrdLink {
   type?: string;
   href?: string;
   titles?: [{
-    [languageTag: string] : string
+    [languageTag: string]: string
   }];
   properties?: {
-    [link: string] : string | null
+    [link: string]: string | null
   };
 }
