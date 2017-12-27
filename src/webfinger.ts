@@ -94,6 +94,7 @@ export class WebFinger {
     };
 
     xhr.open('GET', url, true);
+    xhr.timeout = self.config.requestTimeout;
     xhr.setRequestHeader('Accept', 'application/jrd+json, application/json');
     xhr.send();
   };
