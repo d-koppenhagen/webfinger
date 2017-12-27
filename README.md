@@ -1,4 +1,5 @@
 # webfinger-client
+[![NPM version][npm-image]][npm-url]
 
 A webfinger client that runs both in the browser and in node.js.
 The Client is based on Nick Jennings library [webfinger.js](https://github.com/silverbucket/webfinger.js) but has been rewritten in TypeScript.
@@ -89,3 +90,6 @@ import { WebFinger } from 'webfinger';
 ## Development
 The library is built with Webpack. Notes for building and serving can be fount in 
 [DEVELOPMENT](DEVELOPMENT).
+
+[npm-url]: https://npmjs.org/package/webfinger-client
+[npm-image]: https://badge.fury.io/js/webfinger-client.svg
