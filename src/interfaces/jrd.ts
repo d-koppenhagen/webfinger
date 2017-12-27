@@ -8,8 +8,8 @@
 export interface Ijrd {
   properties?: {
     [link: string]: string | null
-  },
-  links: IjrdLink[],
+  };
+  links: IjrdLink[];
   subject?: string;
   aliases?: string[];
   error?: any;
