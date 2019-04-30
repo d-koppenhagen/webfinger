@@ -1,6 +1,6 @@
 export interface IWebFingerConfig {
-  tlsOnly?: boolean;
-  webfistFallback?: boolean;
-  uriFallback?: boolean;
+  tlsOnly?: Boolean;
+  webfistFallback?: Boolean;
+  uriFallback?: Boolean;
   requestTimeout?: number;
 }

@@ -24,6 +24,7 @@ const LINK_URI_MAPS = {
   'http://webfist.org/spec/rel': 'webfist',
   'http://webfinger.net/rel/avatar': 'avatar',
   'remotestorage': 'remotestorage',
+  'http://tools.ietf.org/id/draft-dejong-remotestorage': 'remotestorage',
   'remoteStorage': 'remotestorage',
   'http://www.packetizer.com/rel/share': 'share',
   'http://webfinger.net/rel/profile-page': 'profile',
@@ -51,14 +52,25 @@ const URIS = ['webfinger', 'host-meta', 'host-meta.json'];
 
 export class WebFinger {
   constructor(public config: IWebFingerConfig) {
-    if (config.tlsOnly == null) { config.tlsOnly = true; }
-    if (config.webfistFallback == null) { config.webfistFallback = false };
-    if (config.uriFallback == null) { config.uriFallback = false };
-    if (config.requestTimeout == null) { config.requestTimeout = 10000 };
+    if (!config.tlsOnly) { config.tlsOnly = true; }
+    if (!config.webfistFallback) { config.webfistFallback = false; }
+    if (!config.uriFallback) { config.uriFallback = false; }
+    if (!config.requestTimeout) { config.requestTimeout = 10000; }
   }
 
   private _err(obj: IWebFingerError) {
     return obj;
+  }
+
+  private _isSecure(url: string): boolean {
+    if (typeof url !== 'string') {
+      return false;
+    }
+    const parts = url.split('://');
+    if (parts[0] === 'https') {
+      return true;
+    }
+    return false;
   }
 
   private _fetchJRD(url: string, cb: Function) {
@@ -124,7 +136,9 @@ export class WebFinger {
       object: JRD,
       json: JRD,
       idx: {
-        properties: { name: undefined },
+        properties: {
+          name: null
+        },
         links: JSON.parse(JSON.stringify(LINK_PROPERTIES))
        }
     };
@@ -134,7 +148,7 @@ export class WebFinger {
       if (LINK_URI_MAPS.hasOwnProperty(link.rel)) {
         if (result.idx.links[LINK_URI_MAPS[link.rel]]) {
           const entry = {};
-          Object.keys(link).map((item, n) => {
+          Object.keys(link).map(function (item, n) {
             entry[item] = link[item];
           });
           result.idx.links[LINK_URI_MAPS[link.rel]].push(entry);
@@ -152,7 +166,7 @@ export class WebFinger {
       }
     }
     cb(null, result);
-  };
+  }
 
   lookup(address: string, cb: Function) {
     const self = this;
@@ -173,7 +187,7 @@ export class WebFinger {
     }
 
     // control flow for failures, what to do in various cases, etc.
-    function _fallbackChecks(err) {
+    function _fallbackChecks(err: any) {
       if ((self.config.uriFallback) && (host !== 'webfist.org') && (uri_index !== URIS.length - 1)) { // we have uris left to try
         uri_index = uri_index + 1;
         _call();
@@ -191,15 +205,15 @@ export class WebFinger {
         //    (stored somewhere in control of the user)
         // 3. make a request to that url and get the json
         // 4. process it like a normal webfinger response
-        self._fetchJRD(_buildURL(), function (error, data) { // get link to users JRD
+        self._fetchJRD(_buildURL(), (error: any, data: any) => { // get link to users JRD
           if (error) {
             cb(error);
             return false;
           }
-          self._processJRD(data, function (errJRD, result) {
+          self._processJRD(data, (errJRD: any, result: any) => {
             if ((typeof result.idx.links.webfist === 'object') &&
                 (typeof result.idx.links.webfist[0].href === 'string')) {
-              self._fetchJRD(result.idx.links.webfist[0].href, function (errJRDFetch, JRD) {
+              self._fetchJRD(result.idx.links.webfist[0].href, (errJRDFetch: any, JRD: any) => {
                 if (errJRDFetch) {
                   cb(errJRD);
                 } else {
@@ -217,7 +231,7 @@ export class WebFinger {
 
     function _call() {
       // make request
-      self._fetchJRD(_buildURL(), function (err, JRD) {
+      self._fetchJRD(_buildURL(), (err: any, JRD: any) => {
         if (err) {
           _fallbackChecks(err);
         } else {
@@ -227,13 +241,13 @@ export class WebFinger {
     }
 
     setTimeout(_call, 0);
-  };
+  }
 
   lookupLink(address: string, rel: string, cb: Function) {
     const that = this;
 
     if (LINK_PROPERTIES.hasOwnProperty(rel)) {
-      that.lookup(address, (err, p) => {
+      that.lookup(address, (err: any, p: any) => {
         const links  = p.idx.links[rel];
         if (err) {
           cb (err);
@@ -246,6 +260,6 @@ export class WebFinger {
     } else {
       cb ('unsupported rel ' + rel);
     }
-  };
+  }
 
 }

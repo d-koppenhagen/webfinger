@@ -1,37 +1,28 @@
-var path = require('path');
-var webpack = require('webpack');
-var WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const PATHS = {
-  src: path.join(__dirname, './src'),
-  build: path.join(__dirname, './dist')
-};
-
 module.exports = {
-
-  entry: {
-    'index': PATHS.src + '/index.ts'
-  },
+  entry: "./src/index.ts",
   output: {
-    path: PATHS.build,
-    filename: '[name].js',
-    library: 'WebFinger',
-    libraryTarget: 'umd'
+      filename: "./dist/bundle.js",
   },
-  devtool: 'source-map',
-  module: {
-    loaders: [
-      {
-        test: /\.ts$/,
-        loader: 'ts-loader'
-      }
-    ]
-  },
+
+  // Enable sourcemaps for debugging webpack's output.
+  devtool: "source-map",
+
   resolve: {
-    extensions: ['.ts', '.js']
+      // Add '.ts' and '.tsx' as resolvable extensions.
+      extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
   },
-  plugins: [
-    new WebpackBuildNotifierPlugin()
-  ]
+
+  module: {
+      loaders: [
+          // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+          { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
+      ],
+
+      preLoaders: [
+          // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+          { test: /\.js$/, loader: "source-map-loader" }
+      ]
+  },
+
+  // Other options...
 };
