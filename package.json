@@ -1,6 +1,6 @@
 {
   "name": "webfinger-demo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A JavaScript Client for webfinger written in TypeScript",
   "scripts": {
     "ng": "ng",

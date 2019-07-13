@@ -4,17 +4,17 @@
 A webfinger client that runs both in the browser and in node.js.
 The Client is based on Nick Jennings library [webfinger.js](https://github.com/silverbucket/webfinger.js) but has been rewritten in TypeScript.
 
-## IMPORTANT NOTE
-This client library may doesn't work in the current version and is still in development
+## Demo
+Check out the Demo at GitHub Pages: [https://d-koppenhagen.github.io/webfinger/](https://d-koppenhagen.github.io/webfinger/)
+
 
 ## Features
-
 * defaults to TLS only
 * optional URI fallback (for older services which use `host-meta` or `host-meta.json` URI endpoints)
 * optional support for [WebFist](http://webfist.org)
 
 ## Demo
-clone this repository, navigate into the `demo`-folder, run `npm install` and finally `npm start`
+clone this repository, run `npm install` and finally `npm start`
 
 ## Install
 Install the client as a dependency:

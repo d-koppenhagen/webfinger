@@ -4,7 +4,7 @@ Run `ng build webfinger` to build the project. The build artifacts will be store
 
 ## Publishing
 
-1. Bump up the version in `projects/webpack/package.json` when changes are done.
+1. Bump up the version in `projects/webfinger/package.json` when changes are done.
 1. Add a scetion to `CHANGELOG.md`.
 2. Build the library and artifacts using the npm script `npm run package`.
 3. Go to the dist folder `cd dist/webfinger` and run `npm publish`.
