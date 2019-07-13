@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WebFinger } from '../../projects/webfinger/src/public-api';
 
 @Component({
@@ -6,7 +6,7 @@ import { WebFinger } from '../../projects/webfinger/src/public-api';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
   webfinger: WebFinger;
   response: string;
   resource = 'paulej@packetizer.com';
@@ -24,11 +24,7 @@ export class AppComponent implements OnInit, OnChanges {
     this.checkResource();
   }
 
-  ngOnChanges() {
-    this.checkResource();
-  }
-
-  private checkResource() {
+  checkResource() {
     this.webfinger.lookup(this.resource, (err, res) => {
       if (err) {
         this.response = err;
