@@ -1,15 +1,11 @@
-# Development Notes
-The library will be built by using [Webpack](https://github.com/webpack/webpack).
+## Build
 
-## Install dependencies
-run: `npm install` on command line.
+Run `ng build webfinger` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Build for Development
-run: `npm run build` on command line.
+## Publishing
 
-or if you want to rebuild always when files are changed use: `npm run watch`
-
-## Build for Production
-run: `npm run build-prod` on command line.
-
-This command will also be perfromed when you will run `npm publish`. 
+1. Bump up the version in `projects/webpack/package.json` when changes are done.
+1. Add a scetion to `CHANGELOG.md`.
+2. Build the library and artifacts using the npm script `npm run package`.
+3. Go to the dist folder `cd dist/webfinger` and run `npm publish`.
+4. Consider updating the gh-pages example probject running `npm run publish-gh-pages`

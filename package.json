@@ -1,22 +1,20 @@
 {
-  "name": "webfinger-client",
-  "version": "0.0.2",
+  "name": "webfinger-demo",
+  "version": "1.0.0",
   "description": "A JavaScript Client for webfinger written in TypeScript",
-  "main": "dist/index.js",
-  "types": "dist/src/index.d.ts",
-  "files": [
-    "dist/index.js",
-    "dist/src/webfinger.js",
-    "dist/src/interfaces/webfinger-config.js",
-    "dist/src/interfaces/webfinger-error.js",
-    "dist/src/interfaces/jrd.js"
-  ],
   "scripts": {
-    "build": "webpack",
-    "build-prod": "webpack -p",
-    "watch": "webpack --watch --watch-poll ",
-    "prepublish": "webpack -p"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test webfinger",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "build-prod": "ng build webfinger",
+    "copy": "copyfiles -f README.md CHANGELOG.md LICENSE dist/webfinger",
+    "package": "npm run build-prod && npm run copy",
+    "publish-gh-pages": "ng build --prod --base-href=https://d-koppenhagen.github.io/webfinger/ && npx ngh --dir=dist/webfinger-demo"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/d-koppenhagen/webfinger.git"
@@ -36,10 +34,47 @@
   ],
   "author": "Danny Koppenhagen <mail@d-koppenhagen.de> (https://d-koppenhagen.de)",
   "license": "LGPL-3.0",
+  "dependencies": {
+    "@angular/animations": "~8.1.1",
+    "@angular/cdk": "~8.0.2",
+    "@angular/common": "~8.1.1",
+    "@angular/compiler": "~8.1.1",
+    "@angular/core": "~8.1.1",
+    "@angular/flex-layout": "^8.0.0-beta.26",
+    "@angular/forms": "~8.1.1",
+    "@angular/material": "^8.0.2",
+    "@angular/platform-browser": "~8.1.1",
+    "@angular/platform-browser-dynamic": "~8.1.1",
+    "@angular/router": "~8.1.1",
+    "copyfiles": "^2.1.1",
+    "rxjs": "~6.4.0",
+    "tslib": "^1.9.0",
+    "webfinger-client": "*",
+    "zone.js": "~0.9.1"
+  },
   "devDependencies": {
-    "awesome-typescript-loader": "^5.2.1",
-    "tslint": "~5.16.0",
-    "source-map-loader": "^0.2.4",
-    "typescript": "^3.4.5"
+    "@angular-devkit/build-angular": "~0.801.1",
+    "@angular-devkit/build-ng-packagr": "~0.801.1",
+    "@angular/cli": "~8.1.1",
+    "@angular/compiler-cli": "~8.1.1",
+    "@angular/language-service": "~8.1.1",
+    "@types/node": "~8.9.4",
+    "@types/jasmine": "~3.3.8",
+    "@types/jasminewd2": "~2.0.3",
+    "angular-cli-ghpages": "^0.5.3",
+    "codelyzer": "^5.0.0",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "ng-packagr": "^5.1.0",
+    "protractor": "~5.4.0",
+    "ts-node": "~7.0.0",
+    "tsickle": "^0.35.0",
+    "tslint": "~5.15.0",
+    "typescript": "~3.4.3"
   }
 }

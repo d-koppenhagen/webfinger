@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+  <span>Webfinger Client Demo</span>
+
+  <span class="fill-space"></span>
+
+  <a mat-button href="https://github.com/d-koppenhagen/webfinger">
+    Github
+    <mat-icon aria-hidden="false" aria-label="Github" svgIcon="github"></mat-icon>
+  </a>
+</mat-toolbar>
+<main>
+
+  <div style="text-align:center">
+    <h1>
+      WebFinger Example App
+    </h1>
+
+    <div class="form-container">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          class="form-control"
+          required
+          placeholder="Please enter ressource you want to check"
+          [(ngModel)]="resource"
+          name="resource"
+          id="resource">
+      </mat-form-field>
+    </div>
+
+    <button mat-stroked-button (click)="checkResource()">Check for Information</button>
+
+    <div class="result">
+      <textarea
+        fxFlex
+        class="json"
+        matInput
+        rows="20"
+        [value]="response | json"
+        name="response"
+        id="response"
+      ></textarea>
+    </div>
+
+  </div>
+
+
+</main>
+
+
+
+
