@@ -1,6 +1,8 @@
 # webfinger-client
 [![NPM version][npm-image]][npm-url]
 
+> THIS PROJECT IS A FORK OF https://github.com/silverbucket/webfinger.js and no longer maintained!
+
 A webfinger client that runs both in the browser and in node.js.
 The Client is based on Nick Jennings library [webfinger.js](https://github.com/silverbucket/webfinger.js) but has been rewritten in TypeScript.
 
